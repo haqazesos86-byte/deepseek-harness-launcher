@@ -13,6 +13,7 @@
 - **桌面黑鲸鱼图标**：自动下载/内置 DeepSeek 官方鲸鱼图标（多尺寸 `.ico`），桌面生成 `DeepSeek Harness` 快捷方式，双击即用。
 - **永不报"无法访问"**：启动器先探测 3080 端口 —— 已在运行就直接开浏览器；未运行才静默拉起服务，等它就绪（最长 120 秒）再开浏览器。
 - **幂等**：重复双击不会重复起服务，只会再次打开页面。
+- **可选：DeepSeek 官网快捷方式（蓝鲸鱼）**：安装时可顺手创建一个带官方**蓝鲸鱼**图标的「DeepSeek 官网」桌面快捷方式，双击直达官网；自动区分**国内 / 国际用户** —— 国内 → 中文官网 `deepseek.com`，国外 → 英文官网 `deepseek.com/en`（可按 `-Region CN|INT` 强制指定）。
 
 ---
 
@@ -42,8 +43,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File setup.ps1
 | `setup.ps1` | 一键部署：Node 检验 → 装 Node → 装 dsh → 验证 → 建桌面图标 |
 | `launcher.ps1` | 桌面双击后真正执行的启动器（探测端口 → 起服务 → 开浏览器） |
 | `make-shortcut.ps1` | 生成桌面快捷方式（可重复运行，用于重建图标） |
+| `make-website-shortcut.ps1` | （可选）创建「DeepSeek 官网」快捷方式（蓝鲸鱼图标，按地区跳国内/国际官网） |
 | `assets/harness.ico` | DeepSeek 黑鲸鱼图标（16~256 多尺寸） |
-| `assets/harness-favicon.svg` | 图标源文件（SVG） |
+| `assets/harness-favicon.svg` | 黑鲸鱼图标源文件（SVG） |
+| `assets/whale-blue.ico` | DeepSeek 品牌蓝鲸鱼图标（16~256 多尺寸） |
+| `assets/whale-blue.svg` | 蓝鲸鱼图标源文件（SVG，品牌蓝渐变） |
 
 ---
 
@@ -92,6 +96,9 @@ npm install -g @deepseek-ai/dsh         # 2. 安装 Harness
 dsh web                                 # 3. 启动服务（保持窗口开启）
 # 然后浏览器访问 http://127.0.0.1:3080/
 ```
+
+**Q7：「DeepSeek 官网」快捷方式（蓝鲸鱼）怎么单独创建 / 重建？**
+重跑一次 `make-website-shortcut.ps1` 即可（幂等）。默认 `-Region auto` 自动判断：国内 → `deepseek.com`（中文官网），国外 → `deepseek.com/en`（英文官网）。想强制指定地区用 `-Region CN` 或 `-Region INT`。注意 `deepseek.ai` 等域名是第三方导购站，**不是** DeepSeek 官方，本脚本只指向官方 `deepseek.com`。
 
 ---
 

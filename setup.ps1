@@ -7,6 +7,7 @@
 #    3) 全局安装 @deepseek-ai/dsh
 #    4) 验证 dsh 可用
 #    5) 在桌面创建 "DeepSeek Harness" 双击图标
+#    6) (可选) 创建 "DeepSeek 官网" 蓝鲸鱼图标（自动区分国内/国际官网）
 #  用法:
 #    右键 "使用 PowerShell 运行"，或
 #    powershell -NoProfile -ExecutionPolicy Bypass -File setup.ps1
@@ -68,6 +69,14 @@ Write-Host "[3/4] @deepseek-ai/dsh 已就绪: v$dshVer" -ForegroundColor Green
 # ---- [4/4] 创建桌面快捷方式 ----
 Write-Host '[4/4] 正在创建桌面快捷方式...' -ForegroundColor Yellow
 & (Join-Path $PSScriptRoot 'make-shortcut.ps1')
+
+# ---- (可选) DeepSeek 官网快捷方式（蓝鲸鱼图标，按地区跳转国内/国际官网）----
+Write-Host ''
+$answer = Read-Host '是否同时创建「DeepSeek 官网」快捷方式（蓝鲸鱼图标，双击直达官网，自动区分国内/国际版）？[y/N]'
+if ($answer -match '^[Yy]') {
+    Write-Host '正在创建 DeepSeek 官网快捷方式...' -ForegroundColor Yellow
+    & (Join-Path $PSScriptRoot 'make-website-shortcut.ps1')
+}
 
 Write-Host ''
 Write-Host '部署完成！双击桌面上的 "DeepSeek Harness" 图标即可打开。' -ForegroundColor Green
