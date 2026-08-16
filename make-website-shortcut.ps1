@@ -33,6 +33,7 @@ $urlCN  = 'https://www.deepseek.com/'      # 国内官网 (zh-CN)
 $urlINT = 'https://www.deepseek.com/en/'   # 国际官网 (en-US)
 $url  = if ($Region -eq 'CN') { $urlCN } else { $urlINT }
 $name = if ($Region -eq 'CN') { 'DeepSeek 官网' } else { 'DeepSeek Official' }
+$desc = if ($Region -eq 'CN') { 'DeepSeek 官网' } else { 'DeepSeek official website' }
 
 # ---- create the .lnk ----
 $desktop = [Environment]::GetFolderPath('Desktop')
@@ -43,7 +44,7 @@ $ws = New-Object -ComObject WScript.Shell
 $lnk = $ws.CreateShortcut($lnkPath)
 $lnk.TargetPath = $url
 $lnk.IconLocation = $icon
-$lnk.Description = 'DeepSeek 官网'
+$lnk.Description = $desc
 $lnk.Save()
 
 Write-Host "Shortcut created: $lnkPath"
